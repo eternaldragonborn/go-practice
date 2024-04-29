@@ -76,3 +76,27 @@ func TestPreOrder(t *testing.T) {
 		})
 	}
 }
+
+func TestFindNode(t *testing.T) {
+	root := CreateTree([]any{6, 2, 8, 0, 4, 7, 9, nil, nil, 3, 5})
+	cases := []struct {
+		Name     string
+		Val      int
+		Excepted bool
+	}{
+		{"root", 6, true},
+		{"leaf", 3, true},
+		{"null", 10, false},
+	}
+
+	for _, c := range cases {
+		t.Run(c.Name, func(t *testing.T) {
+			node := root.FindNode(c.Val)
+			if c.Excepted {
+				assert.Equal(t, c.Val, node.Val)
+			} else {
+				assert.Nil(t, node)
+			}
+		})
+	}
+}

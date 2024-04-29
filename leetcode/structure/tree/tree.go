@@ -42,6 +42,28 @@ type TreeNode struct {
 	Left, Right *TreeNode
 }
 
+func (root *TreeNode) FindNode(val int) *TreeNode {
+	nodeQueue := []*TreeNode{root}
+
+	for len(nodeQueue) != 0 {
+		node := nodeQueue[0]
+		nodeQueue = nodeQueue[1:]
+
+		if node.Val == val {
+			return node
+		}
+
+		if left := node.Left; left != nil {
+			nodeQueue = append(nodeQueue, left)
+		}
+		if right := node.Right; right != nil {
+			nodeQueue = append(nodeQueue, right)
+		}
+	}
+
+	return nil
+}
+
 func (root *TreeNode) LevelOrderTraversal() []int {
 	ans := []int{}
 	if root == nil {
